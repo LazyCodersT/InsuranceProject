@@ -3,24 +3,32 @@ package Model.Repositories;
 import Model.Entities.Query;
 import Model.Entities.User;
 
+import java.util.List;
+
 public class UserRepo implements IUserRepo{
+
     @Override
-    public User selectUser(Query query) {
+    public User findOne(Query query) {
         return null;
     }
 
     @Override
-    public void createUser(User user) {
+    public List<User> findMany(Query query) {
+        return null;
+    }
+
+    @Override
+    public void insertOne(User user) {
 
     }
 
     @Override
-    public void updateUser(Query query, User user) {
+    public void updateOne(Query query, User user) {
 
     }
 
     @Override
-    public void deleteUser(Query query) {
+    public void deleteOne(Query query) {
 
     }
 }

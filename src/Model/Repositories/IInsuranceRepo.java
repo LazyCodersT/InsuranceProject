@@ -3,9 +3,12 @@ package Model.Repositories;
 import Model.Entities.Insurance;
 import Model.Entities.Query;
 
+import java.util.List;
+
 public interface IInsuranceRepo {
-    Insurance selectInsurance();
-    void createInsurance(Insurance insurance);
-    void updateInsurance(Query query, Insurance insurance);
-    void deleteInsurance(Query query);
+    Insurance findOne(Query query);
+    List<Insurance> findMany(Query query);
+    void insertOne(Insurance insurance);
+    void updateOne(Query query, Insurance insurance);
+    void deleteOne(Query query);
 }

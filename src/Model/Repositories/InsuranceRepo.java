@@ -3,24 +3,31 @@ package Model.Repositories;
 import Model.Entities.Insurance;
 import Model.Entities.Query;
 
+import java.util.List;
+
 public class InsuranceRepo implements IInsuranceRepo{
     @Override
-    public Insurance selectInsurance() {
+    public Insurance findOne(Query query) {
         return null;
     }
 
     @Override
-    public void createInsurance(Insurance insurance) {
+    public List<Insurance> findMany(Query query) {
+        return null;
+    }
+
+    @Override
+    public void insertOne(Insurance insurance) {
 
     }
 
     @Override
-    public void updateInsurance(Query query, Insurance insurance) {
+    public void updateOne(Query query, Insurance insurance) {
 
     }
 
     @Override
-    public void deleteInsurance(Query query) {
+    public void deleteOne(Query query) {
 
     }
 }
