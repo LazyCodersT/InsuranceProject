@@ -8,9 +8,10 @@ public class Insurance {
     private String  paymentCode;
     private String  jobVerificationCode;
     private Date    date;
-    private String  CustomerType;
+    private CustomerType  customerType;
     private Service service;
-    private String  company;
+    private Company  company;
+    private Integer userId;
 
     public Insurance() {}
 
@@ -59,12 +60,12 @@ public class Insurance {
         return this;
     }
 
-    public String getCustomerType() {
-        return CustomerType;
+    public CustomerType getCustomerType() {
+        return customerType;
     }
 
-    public Insurance setCustomerType(String customerType) {
-        CustomerType = customerType;
+    public Insurance setCustomerType(CustomerType customerType) {
+        customerType = customerType;
         return this;
     }
 
@@ -77,12 +78,21 @@ public class Insurance {
         return this;
     }
 
-    public String getCompany() {
+    public Company getCompany() {
         return company;
     }
 
-    public Insurance setCompany(String company) {
+    public Insurance setCompany(Company company) {
         this.company = company;
+        return this;
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public Insurance setUserId(Integer userId) {
+        this.userId = userId;
         return this;
     }
 }

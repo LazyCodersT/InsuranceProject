@@ -1,2 +1,4 @@
-package Controller;public interface IUser {
+package Controller;
+
+public interface IUser {
 }
