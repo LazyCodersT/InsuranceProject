@@ -9,8 +9,8 @@ import java.util.List;
 public interface IUserRepo {
     User findOne(Query query) throws SQLException;
     List<User> findMany(Query query) throws SQLException;
-    void insertOne(User user);
-    void updateOne(Query query, User user);
-    void deleteOne(Query query);
+    void insertOne(User user) throws SQLException;
+    void updateOne(Query query, User user) throws SQLException;
+    void deleteOne(Query query) throws SQLException;
 
 }

@@ -1,6 +1,6 @@
 package Model.Entities;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class Insurance {
     private Integer id;
