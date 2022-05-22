@@ -82,7 +82,7 @@ public class Insurance {
         return company;
     }
 
-    public Insurance setCompany(Company company) {
+    public Insurance setCompany(Company  company) {
         this.company = company;
         return this;
     }
