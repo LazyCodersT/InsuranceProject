@@ -18,16 +18,16 @@ public class UserRepo implements IUserRepo{
 
     @Override
     public User findOne(Query query) throws SQLException {
-        String q = "SELECT * FROM Users JOIN Privileges ON Users.privilege_id = Privileges.id" + query.parseQuery() + " limit 1;";
+        String q = "SELECT * FROM users JOIN privileges ON users.privilege_id = privileges.id" + query.parseQuery() + " limit 1;";
         Statement statement = conn.createStatement();
         ResultSet res = statement.executeQuery(q);
         User user = new User();
         if (res.next()) {
             user.setId(res.getInt("id")).setUsername(res.getString("username")).setPassword(res.getString("password"));
             user.setFirstname(res.getString("firstname")).setLastname(res.getString("lastname")).setBirthdate(res.getDate("birthdate"));
-            user.setFatherName(res.getString("fathername")).setNationalCode(res.getString("nationaCode")).setIdNumber(res.getString("idNumber"));
-            user.setNationality(res.getString("nationality")).setCity(res.getString("city")).setPhoneNumber(res.getString("phoneNumber"));
-            user.setHomeNumber(res.getString("homeNumber")).setType(res.getBoolean("isAdmin") ? UserType.ADMIN: UserType.USER);
+            user.setFatherName(res.getString("father_name")).setNationalCode(res.getString("national_code")).setIdNumber(res.getString("id_number"));
+            user.setNationality(res.getString("nationality")).setCity(res.getString("city")).setPhoneNumber(res.getString("phone_number"));
+            user.setHomeNumber(res.getString("home_number")).setType(res.getBoolean("privileges.is_admin") ? UserType.ADMIN: UserType.USER);
         }
         statement.close();
         return user;
@@ -43,9 +43,9 @@ public class UserRepo implements IUserRepo{
             User user = new User();
             user.setId(res.getInt("id")).setUsername(res.getString("username")).setPassword(res.getString("password"));
             user.setFirstname(res.getString("firstname")).setLastname(res.getString("lastname")).setBirthdate(res.getDate("birthdate"));
-            user.setFatherName(res.getString("fathername")).setNationalCode(res.getString("nationaCode")).setIdNumber(res.getString("idNumber"));
-            user.setNationality(res.getString("nationality")).setCity(res.getString("city")).setPhoneNumber(res.getString("phoneNumber"));
-            user.setHomeNumber(res.getString("homeNumber")).setType(res.getBoolean("isAdmin") ? UserType.ADMIN: UserType.USER);
+            user.setFatherName(res.getString("father_name")).setNationalCode(res.getString("national_code")).setIdNumber(res.getString("id_number"));
+            user.setNationality(res.getString("nationality")).setCity(res.getString("city")).setPhoneNumber(res.getString("phone-number"));
+            user.setHomeNumber(res.getString("home-number")).setType(res.getBoolean("privileges.is_admin") ? UserType.ADMIN: UserType.USER);
             users.add(user);
         }
         statement.close();
@@ -54,7 +54,7 @@ public class UserRepo implements IUserRepo{
 
     @Override
     public void insertOne(User user) throws SQLException {
-        String query = "INSERT INTO Users VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?);";
+        String query = "INSERT INTO users VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?);";
         PreparedStatement statement = conn.prepareStatement(query);
         statement.setString(0, user.getUsername());
         statement.setString(1, user.getPassword());
@@ -75,9 +75,9 @@ public class UserRepo implements IUserRepo{
 
     @Override
     public void updateOne(Query query, User user) throws SQLException {
-        String q = "UPDATE Users SET username=?, password=?, firstname=?," +
-                "lastname=?, birthdate=?, fatherName=?, nationalCode=?," +
-                "idNumber=?, nationality=?, city=?, phoneNumber=?, homeNumber=?" +
+        String q = "UPDATE users SET username=?, password=?, firstname=?," +
+                "lastname=?, birthdate=?, father_name=?, national_code=?," +
+                "id_number=?, nationality=?, city=?, phone_number=?, home_number=?" +
                 "privilege_id=?" + query.parseQuery() + ";";
         PreparedStatement statement = conn.prepareStatement(q);
         statement.setString(0, user.getUsername());
@@ -99,9 +99,17 @@ public class UserRepo implements IUserRepo{
 
     @Override
     public void deleteOne(Query query) throws SQLException {
-        String q = "DELETE FROM Users" + query.parseQuery() + " limit 1;";
+        String q = "DELETE FROM users" + query.parseQuery() + " limit 1;";
         Statement statement = conn.createStatement();
         statement.execute(q);
         statement.close();
+    }
+
+    public void commit() throws SQLException {
+        this.conn.commit();
+    }
+
+    public void rollback() throws SQLException {
+        this.conn.rollback();
     }
 }

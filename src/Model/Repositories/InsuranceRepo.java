@@ -15,19 +15,19 @@ public class InsuranceRepo implements IInsuranceRepo{
     }
     @Override
     public Insurance findOne(Query query) throws SQLException {
-        String q = "SELECT * FROM Insurance" +
-                "JOIN Service on Insurance.service_id = Service.id JOIN Company on Insurance.company_id = Company.id " +
-                "JOIN Insurance.customertype_id = CustomerType.id" + query.parseQuery() + " limit 1;";
+        String q = "SELECT * FROM insurances" +
+                "JOIN services on insurances.service_id = services.id JOIN Company on insurances.company_id = companies.id " +
+                "JOIN insurances.customer_type_id = customer_types.id" + query.parseQuery() + " limit 1;";
         Statement statement = conn.createStatement();
         ResultSet res = statement.executeQuery(q);
         Insurance insurance = new Insurance();
         if (res.next()) {
-            insurance.setId(res.getInt("id")).setDocNumber(res.getInt("docNumber"));
-            insurance.setPaymentCode(res.getString("paymentCode"));
-            insurance.setJobVerificationCode(res.getString("jobVerificationCode")).setDate(res.getDate("date"));
-            insurance.setCustomerType(new CustomerType(res.getInt("CustomerType.id"), res.getString("CustomerType.name")));
-            insurance.setService(new Service(res.getInt("Service.id"), res.getString("Service.name"), res.getInt("Service.price")));
-            insurance.setCompany(new Company(res.getInt("Company.id"), res.getString("Company.name")));
+            insurance.setId(res.getInt("id")).setDocNumber(res.getInt("document_number"));
+            insurance.setPaymentCode(res.getString("payment_code"));
+            insurance.setJobVerificationCode(res.getString("job_verification_code")).setDate(res.getDate("date"));
+            insurance.setCustomerType(new CustomerType(res.getInt("customer_types.id"), res.getString("customer_types.name")));
+            insurance.setService(new Service(res.getInt("services.id"), res.getString("services.name"), res.getInt("services.price")));
+            insurance.setCompany(new Company(res.getInt("companies.id"), res.getString("companies.name")));
             insurance.setUserId(res.getInt("user_id"));
         }
         statement.close();
@@ -36,20 +36,20 @@ public class InsuranceRepo implements IInsuranceRepo{
 
     @Override
     public List<Insurance> findMany(Query query) throws SQLException {
-        String q = "SELECT * FROM Insurance" +
-                "JOIN Service on Insurance.service_id = Service.id JOIN Company on Insurance.company_id = Company.id " +
-                "JOIN Insurance.customertype_id = CustomerType.id" + query.parseQuery() + ";";
+        String q = "SELECT * FROM insurances" +
+                "JOIN services on insurances.service_id = services.id JOIN companies on insurances.company_id = companies.id " +
+                "JOIN insurances.customer_type_id = customer_types.id" + query.parseQuery() + ";";
         Statement statement = conn.createStatement();
         ResultSet res = statement.executeQuery(q);
         List<Insurance> insurances = new ArrayList<>();
         while (res.next()) {
             Insurance insurance = new Insurance();
-            insurance.setId(res.getInt("id")).setDocNumber(res.getInt("docNumber"));
-            insurance.setPaymentCode(res.getString("paymentCode"));
-            insurance.setJobVerificationCode(res.getString("jobVerificationCode")).setDate(res.getDate("date"));
-            insurance.setCustomerType(new CustomerType(res.getInt("CustomerType.id"), res.getString("CustomerType.name")));
-            insurance.setService(new Service(res.getInt("Service.id"), res.getString("Service.name"), res.getInt("Service.price")));
-            insurance.setCompany(new Company(res.getInt("Company.id"), res.getString("Company.name")));
+            insurance.setId(res.getInt("id")).setDocNumber(res.getInt("document_number"));
+            insurance.setPaymentCode(res.getString("payment_code"));
+            insurance.setJobVerificationCode(res.getString("job_verification_code")).setDate(res.getDate("date"));
+            insurance.setCustomerType(new CustomerType(res.getInt("customer_types.id"), res.getString("customer_types.name")));
+            insurance.setService(new Service(res.getInt("services.id"), res.getString("services.name"), res.getInt("services.price")));
+            insurance.setCompany(new Company(res.getInt("companies.id"), res.getString("companies.name")));
             insurance.setUserId(res.getInt("user_id"));
             insurances.add(insurance);
         }
@@ -59,7 +59,7 @@ public class InsuranceRepo implements IInsuranceRepo{
 
     @Override
     public void insertOne(Insurance insurance) throws SQLException {
-        String q = "INSERT INTO Insurance VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
+        String q = "INSERT INTO insurances VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
         PreparedStatement statement = conn.prepareStatement(q);
         statement.setInt(0, insurance.getDocNumber());
         statement.setString(1, insurance.getPaymentCode());
@@ -75,8 +75,8 @@ public class InsuranceRepo implements IInsuranceRepo{
 
     @Override
     public void updateOne(Query query, Insurance insurance) throws SQLException {
-        String q = "UPDATE Insurance SET document_number=?, payment_code=?, job_verification_number=?," +
-                "date=?, service_id=?, company_id, customertype_id=?, user_id=?" + query.parseQuery() + ";";
+        String q = "UPDATE insurances SET document_number=?, payment_code=?, job_verification_number=?," +
+                "date=?, service_id=?, company_id, customer_type_id=?, user_id=?" + query.parseQuery() + ";";
         PreparedStatement statement = conn.prepareStatement(q);
         statement.setInt(0, insurance.getDocNumber());
         statement.setString(1, insurance.getPaymentCode());
@@ -92,9 +92,17 @@ public class InsuranceRepo implements IInsuranceRepo{
 
     @Override
     public void deleteOne(Query query) throws SQLException {
-        String q = "DELETE FROM Insurance" + query.parseQuery() + " limit 1;";
+        String q = "DELETE FROM insurances" + query.parseQuery() + " limit 1;";
         Statement statement = conn.createStatement();
         statement.execute(q);
         statement.close();
+    }
+
+    public void commit() throws SQLException {
+        this.conn.commit();
+    }
+
+    public void rollback() throws SQLException {
+        this.conn.rollback();
     }
 }

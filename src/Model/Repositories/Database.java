@@ -42,6 +42,14 @@ public class Database implements AutoCloseable {
         }
     }
 
+    public void rollback() {
+        try {
+            this.conn.rollback();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     @Override
     public void close() throws Exception {
         this.conn.close();

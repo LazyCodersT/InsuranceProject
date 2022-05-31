@@ -1,10 +1,9 @@
 package Model.Services;
 
-import Model.Entities.Insurance;
-import Model.Entities.Op;
-import Model.Entities.Query;
+import Model.Entities.*;
 import Model.Repositories.InsuranceRepo;
 
+import java.sql.Date;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -18,6 +17,7 @@ public class InsuranceService implements IInsuranceService {
 
     @Override
     public void newInsurance(Insurance insurance) throws SQLException {
+        insurance.setDate(new Date(new java.util.Date().getDate()));
         repo.insertOne(insurance);
     }
 
@@ -32,11 +32,26 @@ public class InsuranceService implements IInsuranceService {
     }
 
     @Override
+    public List<Company> getCompanies() throws SQLException {
+        return null;
+    }
+
+    @Override
+    public List<Service> getServices() throws SQLException {
+        return null;
+    }
+
+    @Override
     public void setPaymentCode(int insurance_id, String code) throws SQLException {
         Query query = new Query().setField("id").setOp(Op.EQUAL).setValue(insurance_id);
         Insurance insurance = repo.findOne(query);
         insurance.setPaymentCode(code);
         repo.updateOne(query, insurance);
+    }
+    
+    public boolean hasPaid(int insurance_id) throws SQLException {
+        Insurance insurance = repo.findOne(new Query().setField("id").setOp(Op.EQUAL).setValue(insurance_id));
+        return insurance.getPaymentCode() != null;
     }
 
     @Override
