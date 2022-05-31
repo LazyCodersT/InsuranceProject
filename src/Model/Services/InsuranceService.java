@@ -2,6 +2,7 @@ package Model.Services;
 
 import Model.Entities.*;
 import Model.Repositories.InsuranceRepo;
+import Model.Repositories.Util;
 
 import java.sql.Date;
 import java.sql.SQLException;
@@ -10,7 +11,6 @@ import java.util.List;
 public class InsuranceService implements IInsuranceService {
 
     private InsuranceRepo repo;
-
     public InsuranceService() {
         this.repo = new InsuranceRepo();
     }
@@ -33,12 +33,12 @@ public class InsuranceService implements IInsuranceService {
 
     @Override
     public List<Company> getCompanies() throws SQLException {
-        return null;
+        return new Util().findAllCompanies();
     }
 
     @Override
     public List<Service> getServices() throws SQLException {
-        return null;
+        return new Util().findAllServices();
     }
 
     @Override
