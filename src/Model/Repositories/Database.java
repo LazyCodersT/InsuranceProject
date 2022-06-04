@@ -9,16 +9,19 @@ public class Database implements AutoCloseable {
     private static Database instance;
     private Connection conn;
 
-    private static final String DB_URL = "";
-    private static final String DB_USER = "system";
-    private static final String DB_PASS = "oracle";
+    private static final String DB_URL = "jdbc:mysql://localhost:3306/sys?characterEncoding=utf8";
+    private static final String DB_USER = "root";
+    private static final String DB_PASS = "root";
 
     private Database() {
         try {
+            Class.forName("com.mysql.jdbc.Driver");
             this.conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS);
             this.conn.setAutoCommit(false);
         } catch (SQLException e) {
             System.out.println("There was a problem connecting to Database!");
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
     }

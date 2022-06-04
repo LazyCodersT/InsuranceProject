@@ -14,7 +14,8 @@ public interface IInsuranceService {
     List<Insurance> getInsurancesByUserId(int id) throws SQLException;
     List<Company> getCompanies() throws SQLException;
     List<Service> getServices() throws SQLException;
-    void setPaymentCode(int insurance_id, String code) throws SQLException;
+    List<CustomerType> getCustomerTypes() throws SQLException;
+    void pay(int insurance_id, String code) throws SQLException;
     boolean hasPaid(int insurance_id) throws SQLException;
     void updateInsuranceById(int id, Insurance insurance) throws SQLException;
     void cancelInsuranceById(int id) throws SQLException;

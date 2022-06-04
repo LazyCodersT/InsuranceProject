@@ -54,21 +54,21 @@ public class UserRepo implements IUserRepo{
 
     @Override
     public void insertOne(User user) throws SQLException {
-        String query = "INSERT INTO users VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?);";
+        String query = "INSERT INTO users (username, password, firstname, lastname, birthdate, father_name, national_code, id_number, nationality, city, phone_number, home_number, privilege_id) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?);";
         PreparedStatement statement = conn.prepareStatement(query);
-        statement.setString(0, user.getUsername());
-        statement.setString(1, user.getPassword());
-        statement.setString(2, user.getFirstname());
-        statement.setString(3, user.getLastname());
-        statement.setDate(4, user.getBirthdate());
-        statement.setString(5, user.getFatherName());
-        statement.setString(6, user.getNationalCode());
-        statement.setString(7, user.getIdNumber());
-        statement.setString(8, user.getNationality());
-        statement.setString(9, user.getCity());
-        statement.setString(10, user.getPhoneNumber());
-        statement.setString(11, user.getHomeNumber());
-        statement.setInt(12, user.getType().getPrivilegeId());
+        statement.setString(1, user.getUsername());
+        statement.setString(2, user.getPassword());
+        statement.setString(3, user.getFirstname());
+        statement.setString(4, user.getLastname());
+        statement.setDate(5, user.getBirthdate());
+        statement.setString(6, user.getFatherName());
+        statement.setString(7, user.getNationalCode());
+        statement.setString(8, user.getIdNumber());
+        statement.setString(9, user.getNationality());
+        statement.setString(10, user.getCity());
+        statement.setString(11, user.getPhoneNumber());
+        statement.setString(12, user.getHomeNumber());
+        statement.setInt(13, user.getType().getPrivilegeId());
         statement.execute();
         statement.close();
     }
@@ -80,19 +80,19 @@ public class UserRepo implements IUserRepo{
                 "id_number=?, nationality=?, city=?, phone_number=?, home_number=?" +
                 "privilege_id=?" + query.parseQuery() + ";";
         PreparedStatement statement = conn.prepareStatement(q);
-        statement.setString(0, user.getUsername());
-        statement.setString(1, user.getPassword());
-        statement.setString(2, user.getFirstname());
-        statement.setString(3, user.getLastname());
-        statement.setDate(4, user.getBirthdate());
-        statement.setString(5, user.getFatherName());
-        statement.setString(6, user.getNationalCode());
-        statement.setString(7, user.getIdNumber());
-        statement.setString(8, user.getNationality());
-        statement.setString(9, user.getCity());
-        statement.setString(10, user.getPhoneNumber());
-        statement.setString(11, user.getHomeNumber());
-        statement.setInt(12, user.getType().getPrivilegeId());
+        statement.setString(1, user.getUsername());
+        statement.setString(2, user.getPassword());
+        statement.setString(3, user.getFirstname());
+        statement.setString(4, user.getLastname());
+        statement.setDate(5, user.getBirthdate());
+        statement.setString(6, user.getFatherName());
+        statement.setString(7, user.getNationalCode());
+        statement.setString(8, user.getIdNumber());
+        statement.setString(9, user.getNationality());
+        statement.setString(10, user.getCity());
+        statement.setString(11, user.getPhoneNumber());
+        statement.setString(12, user.getHomeNumber());
+        statement.setInt(13, user.getType().getPrivilegeId());
         statement.execute();
         statement.close();
     }

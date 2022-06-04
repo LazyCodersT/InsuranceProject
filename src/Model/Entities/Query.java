@@ -26,8 +26,10 @@ public class Query {
                 cmp = "<";
                 break;
         }
-
-        return String.format(" WHERE %s%s%s", field, cmp, value.toString());
+        if (value.getClass() == String.class) {
+            value = "\""+value+"\"";
+        }
+        return String.format(" WHERE %s%s%s", field, cmp, value);
     }
 
     public String getField() {

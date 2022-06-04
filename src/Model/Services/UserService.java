@@ -21,16 +21,18 @@ public class UserService implements IUserService {
     public void signUp(User user) throws SQLException {
         user.setPassword(hashPass(user.getPassword()));
         repo.insertOne(user);
+        repo.commit();
     }
 
     @Override
     public boolean authenticate(String username, String password) {
         try {
             User user = repo.findOne(new Query().setField("username").setOp(Op.EQUAL).setValue(username));
-            if (user.getUsername() == username && hashPass(password) == user.getPassword()) {
+            if (user.getUsername().equals(username) && hashPass(password).equals(user.getPassword())) {
                 return true;
             }
         } catch (SQLException e) {
+            e.printStackTrace();
             return false;
         }
         return false;
@@ -38,7 +40,8 @@ public class UserService implements IUserService {
 
     @Override
     public User getUserById(int id) throws SQLException {
-        return repo.findOne(new Query().setField("id").setOp(Op.EQUAL).setValue(id));
+        // Bad practice
+        return repo.findOne(new Query().setField("users.id").setOp(Op.EQUAL).setValue(id));
     }
 
     @Override

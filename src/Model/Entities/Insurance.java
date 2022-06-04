@@ -65,7 +65,7 @@ public class Insurance {
     }
 
     public Insurance setCustomerType(CustomerType customerType) {
-        customerType = customerType;
+        this.customerType = customerType;
         return this;
     }
 

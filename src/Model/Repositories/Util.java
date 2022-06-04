@@ -1,9 +1,6 @@
 package Model.Repositories;
 
-import Model.Entities.Company;
-import Model.Entities.Service;
-import Model.Entities.User;
-import Model.Entities.UserType;
+import Model.Entities.*;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -43,5 +40,18 @@ public class Util {
             companies.add(company);
         }
         return companies;
+    }
+
+    public List<CustomerType> findAllCustomerTypes() throws SQLException {
+        String query = "SELECT * FROM customer_types;";
+        Statement statement = conn.createStatement();
+
+        List<CustomerType> types = new ArrayList<>();
+        ResultSet res = statement.executeQuery(query);
+        while (res.next()) {
+            CustomerType type = new CustomerType(res.getInt("id"), res.getString("name"));
+            types.add(type);
+        }
+        return types;
     }
 }
