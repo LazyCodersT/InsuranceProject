@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-public class InsuranceService implements IInsuranceService {
+public class InsuranceService implements IInsuranceService, AutoCloseable {
 
     private InsuranceRepo repo;
     public InsuranceService() {
@@ -18,7 +18,7 @@ public class InsuranceService implements IInsuranceService {
 
     @Override
     public void newInsurance(Insurance insurance) throws SQLException {
-        insurance.setDate(new Date(new java.util.Date().getDate()));
+        insurance.setDate(new Date(new java.util.Date().getTime()));
         repo.insertOne(insurance);
         repo.commit();
     }
@@ -83,5 +83,10 @@ public class InsuranceService implements IInsuranceService {
     public void cancelInsuranceById(int id) throws SQLException {
         repo.deleteOne(new Query().setField("insurances.id").setOp(Op.EQUAL).setValue(id));
         repo.commit();
+    }
+
+    @Override
+    public void close() throws Exception {
+
     }
 }

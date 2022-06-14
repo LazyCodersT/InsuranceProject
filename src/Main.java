@@ -27,17 +27,17 @@ public class Main {
         System.out.println(userService.authenticate("emad", "123"));
 
         // get user
-        try {
+        /*try {
             User user = userService.getUserById(6);
             System.out.println(user.getFirstname());
         } catch (SQLException e) {
             e.printStackTrace();
             System.out.println("user not found!");
-        }
+        }*/
 
         IInsuranceService insuranceService = new InsuranceService();
 
-        /* new Insurance
+        // new Insurance
         Insurance insurance = new Insurance();
         insurance.setDocNumber(123456);
         insurance.setPaymentCode("laksdjf1234");
@@ -46,20 +46,20 @@ public class Main {
         insurance.setService(insuranceService.getServices().get(1));
         insurance.setCompany(insuranceService.getCompanies().get(1));
         insurance.setUserId(6);
-        insuranceService.newInsurance(insurance);*/
+        insuranceService.newInsurance(insurance);
 
         // get insurance
         List<Insurance> ins = insuranceService.getInsurancesByUserId(6);
         System.out.println(ins.get(0).getPaymentCode());
 
         // has paid
-        System.out.println(insuranceService.hasPaid(1));
+        //System.out.println(insuranceService.hasPaid(1));
 
         // pay
         //insuranceService.pay(1, "1231kj3");
 
         // cancel insurance
-        insuranceService.cancelInsuranceById(1);
+        //insuranceService.cancelInsuranceById(1);
 
         System.out.println("Hello World");
     }

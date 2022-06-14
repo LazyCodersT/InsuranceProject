@@ -9,7 +9,7 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.sql.SQLException;
 
-public class UserService implements IUserService {
+public class UserService implements IUserService, AutoCloseable {
 
     private UserRepo repo;
 
@@ -63,4 +63,7 @@ public class UserService implements IUserService {
         }
     }
 
+    @Override
+    public void close() throws Exception {
+    }
 }

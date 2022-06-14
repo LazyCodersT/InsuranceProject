@@ -6,7 +6,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class InsuranceRepo implements IInsuranceRepo{
+public class InsuranceRepo implements IInsuranceRepo, AutoCloseable {
 
     private Connection conn;
 
@@ -104,5 +104,10 @@ public class InsuranceRepo implements IInsuranceRepo{
 
     public void rollback() throws SQLException {
         this.conn.rollback();
+    }
+
+    @Override
+    public void close() throws Exception {
+        this.conn.close();
     }
 }

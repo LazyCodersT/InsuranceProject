@@ -8,7 +8,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserRepo implements IUserRepo{
+public class UserRepo implements IUserRepo, AutoCloseable{
 
     private Connection conn;
 
@@ -111,5 +111,10 @@ public class UserRepo implements IUserRepo{
 
     public void rollback() throws SQLException {
         this.conn.rollback();
+    }
+
+    @Override
+    public void close() throws Exception {
+        this.conn.close();
     }
 }
